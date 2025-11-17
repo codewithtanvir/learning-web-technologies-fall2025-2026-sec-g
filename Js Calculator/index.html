@@ -81,12 +81,15 @@
         <button onclick="clearDisplay()">C</button>
         <button onclick="appendNumber('0')">0</button>
         <button>=</button>
-        <button>+</button>
+        <button onclick="setOperation('+')">+</button>
     </div>
 </div>
 
 <script>
     let display = document.getElementById('display');
+    let currentValue = '';
+    let previousValue = '';
+    let operation = null;
     
     function appendNumber(number) {
         display.value += number;
@@ -94,6 +97,39 @@
     
     function clearDisplay() {
         display.value = '';
+        currentValue = '';
+        previousValue = '';
+        operation = null;
+    }
+    
+    function setOperation(op) {
+        if (display.value === '') return;
+        if (previousValue !== '') {
+            calculate();
+        }
+        operation = op;
+        previousValue = display.value;
+        display.value = '';
+    }
+    
+    function calculate() {
+        let result;
+        const prev = parseFloat(previousValue);
+        const current = parseFloat(display.value);
+        
+        if (isNaN(prev) || isNaN(current)) return;
+        
+        switch (operation) {
+            case '+':
+                result = prev + current;
+                break;
+            default:
+                return;
+        }
+        
+        display.value = result;
+        operation = null;
+        previousValue = '';
     }
 </script>
 
