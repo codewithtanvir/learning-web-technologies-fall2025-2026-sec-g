@@ -1,146 +1,114 @@
-<!DOCTYPE html>
 <html>
 <head>
     <title>Calculator</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-top: 50px;
-            background-color: #f0f0f0;
+            background-color: lightgray;
+            text-align: center;
         }
         
-        .calculator {
-            background-color: #333;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 20px rgba(0,0,0,0.3);
-        }
-        
-        #display {
-            width: 100%;
-            height: 50px;
-            font-size: 24px;
-            text-align: right;
-            margin-bottom: 10px;
+        table {
+            margin: 20px auto;
+            background-color: white;
             padding: 10px;
-            box-sizing: border-box;
-            border: none;
-            border-radius: 5px;
-            background-color: #fff;
-        }
-        
-        .buttons {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 10px;
         }
         
         button {
-            width: 60px;
-            height: 60px;
-            font-size: 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            background-color: #4CAF50;
-            color: white;
-            transition: background-color 0.3s;
+            width: 50px;
+            height: 50px;
+            font-size: 18px;
+            background-color: lightblue;
+            border: 1px solid black;
         }
         
         button:hover {
-            background-color: #45a049;
+            background-color: skyblue;
         }
         
-        button:active {
-            background-color: #3d8b40;
+        #display {
+            width: 180px;
+            height: 30px;
+            font-size: 18px;
+            text-align: right;
         }
     </style>
 </head>
 <body>
+    <h2>Calculator</h2>
+    
+    <table border="1">
+        <tr>
+            <td colspan="4">
+                <input type="text" id="display" size="20" disabled>
+            </td>
+        </tr>
+        <tr>
+            <td><button onclick="addNumber('7')">7</button></td>
+            <td><button onclick="addNumber('8')">8</button></td>
+            <td><button onclick="addNumber('9')">9</button></td>
+            <td><button onclick="setOp('/')">/</button></td>
+        </tr>
+        <tr>
+            <td><button onclick="addNumber('4')">4</button></td>
+            <td><button onclick="addNumber('5')">5</button></td>
+            <td><button onclick="addNumber('6')">6</button></td>
+            <td><button onclick="setOp('*')">*</button></td>
+        </tr>
+        <tr>
+            <td><button onclick="addNumber('1')">1</button></td>
+            <td><button onclick="addNumber('2')">2</button></td>
+            <td><button onclick="addNumber('3')">3</button></td>
+            <td><button onclick="setOp('-')">-</button></td>
+        </tr>
+        <tr>
+            <td><button onclick="clearAll()">C</button></td>
+            <td><button onclick="addNumber('0')">0</button></td>
+            <td><button onclick="getResult()">=</button></td>
+            <td><button onclick="setOp('+')">+</button></td>
+        </tr>
+    </table>
 
-<h2>Calculator</h2>
-
-<div class="calculator">
-    <input type="text" id="display" disabled>
-    <div class="buttons">
-        <button onclick="appendNumber('7')">7</button>
-        <button onclick="appendNumber('8')">8</button>
-        <button onclick="appendNumber('9')">9</button>
-        <button onclick="setOperation('/')">/</button>
-        <button onclick="appendNumber('4')">4</button>
-        <button onclick="appendNumber('5')">5</button>
-        <button onclick="appendNumber('6')">6</button>
-        <button onclick="setOperation('*')">*</button>
-        <button onclick="appendNumber('1')">1</button>
-        <button onclick="appendNumber('2')">2</button>
-        <button onclick="appendNumber('3')">3</button>
-        <button onclick="setOperation('-')">-</button>
-        <button onclick="clearDisplay()">C</button>
-        <button onclick="appendNumber('0')">0</button>
-        <button onclick="calculate()">=</button>
-        <button onclick="setOperation('+')">+</button>
-    </div>
-</div>
-
-<script>
-    let display = document.getElementById('display');
-    let currentValue = '';
-    let previousValue = '';
-    let operation = null;
-    
-    function appendNumber(number) {
-        display.value += number;
-    }
-    
-    function clearDisplay() {
-        display.value = '';
-        currentValue = '';
-        previousValue = '';
-        operation = null;
-    }
-    
-    function setOperation(op) {
-        if (display.value === '') return;
-        if (previousValue !== '') {
-            calculate();
-        }
-        operation = op;
-        previousValue = display.value;
-        display.value = '';
-    }
-    
-    function calculate() {
-        let result;
-        const prev = parseFloat(previousValue);
-        const current = parseFloat(display.value);
+    <script>
+        var num1 = '';
+        var num2 = '';
+        var operator = '';
         
-        if (isNaN(prev) || isNaN(current)) return;
-        
-        switch (operation) {
-            case '+':
-                result = prev + current;
-                break;
-            case '-':
-                result = prev - current;
-                break;
-            case '*':
-                result = prev * current;
-                break;
-            case '/':
-                result = prev / current;
-                break;
-            default:
-                return;
+        function addNumber(num) {
+            document.getElementById('display').value = document.getElementById('display').value + num;
         }
         
-        display.value = result;
-        operation = null;
-        previousValue = '';
-    }
-</script>
-
+        function clearAll() {
+            document.getElementById('display').value = '';
+            num1 = '';
+            num2 = '';
+            operator = '';
+        }
+        
+        function setOp(op) {
+            num1 = document.getElementById('display').value;
+            operator = op;
+            document.getElementById('display').value = '';
+        }
+        
+        function getResult() {
+            num2 = document.getElementById('display').value;
+            var result = 0;
+            
+            if (operator == '+') {
+                result = Number(num1) + Number(num2);
+            } else if (operator == '-') {
+                result = Number(num1) - Number(num2);
+            } else if (operator == '*') {
+                result = Number(num1) * Number(num2);
+            } else if (operator == '/') {
+                result = Number(num1) / Number(num2);
+            }
+            
+            document.getElementById('display').value = result;
+            num1 = '';
+            num2 = '';
+            operator = '';
+        }
+    </script>
 </body>
 </html>
