@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Dynamic JavaScript form</title>
+    <style>
+      body {
+        max-width: 600px;
+        margin: 50px auto;
+        padding: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Dynamic Input Form</h1>
+
+    <div class="form-container">
+      <label for="dropdown">Select Input Type:</label>
+      <select id="dropdown">
+        <option value="">-- Select an option --</option>
+        <option value="username">Username</option>
+        <option value="dob">Date of Birth</option>
+        <option value="email">Email</option>
+        <option value="password">Password</option>
+        <option value="phone">Phone Number</option>
+        <option value="address">Address</option>
+        <option value="checkbox">Checkbox (Yes/No)</option>
+      </select>
+
+      <div id="inputContainer"></div>
+
+      <button id="saveButton" style="display: none">Save</button>
+    </div>
+
+    <h2>Saved Data:</h2>
+    <div id="displayArea"></div>
+
+    <script>
+      const dropdown = document.getElementById("dropdown");
+      const inputContainer = document.getElementById("inputContainer");
+      const saveButton = document.getElementById("saveButton");
+      const displayArea = document.getElementById("displayArea");
+      let savedData = [];
+
+      dropdown.addEventListener("change", function () {
+        const selectedType = this.value;
+        inputContainer.innerHTML = "";
+
+        if (selectedType === "") {
+          saveButton.style.display = "none";
+          return;
+        }
+
+        let inputElement;
+        const label = document.createElement("label");
+        label.textContent =
+          "Enter " + this.options[this.selectedIndex].text + ":";
+        inputContainer.appendChild(label);
+
+        switch (selectedType) {
+          case "username":
+            inputElement = document.createElement("input");
+            inputElement.type = "text";
+            inputElement.id = "dynamicInput";
+            inputElement.placeholder = "Enter username";
+            break;
+          case "dob":
+            inputElement = document.createElement("input");
+            inputElement.type = "date";
+            inputElement.id = "dynamicInput";
+            break;
+          case "email":
+            inputElement = document.createElement("input");
+            inputElement.type = "email";
+            inputElement.id = "dynamicInput";
+            inputElement.placeholder = "Enter email";
+            break;
+          case "password":
+            inputElement = document.createElement("input");
+            inputElement.type = "password";
+            inputElement.id = "dynamicInput";
+            inputElement.placeholder = "Enter password";
+            break;
+          case "phone":
+            inputElement = document.createElement("input");
+            inputElement.type = "tel";
+            inputElement.id = "dynamicInput";
+            inputElement.placeholder = "Enter phone number";
+            break;
+          case "address":
+            inputElement = document.createElement("textarea");
+            inputElement.id = "dynamicInput";
+            inputElement.rows = 4;
+            inputElement.cols = 50;
+            inputElement.placeholder = "Enter address";
+            break;
+          case "checkbox":
+            inputElement = document.createElement("input");
+            inputElement.type = "checkbox";
+            inputElement.id = "dynamicInput";
+            const checkboxLabel = document.createElement("label");
+            checkboxLabel.textContent = " Yes";
+            checkboxLabel.style.display = "inline";
+            checkboxLabel.style.fontWeight = "normal";
+            inputContainer.appendChild(document.createElement("br"));
+            inputContainer.appendChild(inputElement);
+            inputContainer.appendChild(checkboxLabel);
+            saveButton.style.display = "inline-block";
+            return;
+        }
+
+        inputContainer.appendChild(document.createElement("br"));
+        inputContainer.appendChild(inputElement);
+        saveButton.style.display = "inline-block";
+      });
+
+      saveButton.addEventListener("click", function () {
+        const selectedType = dropdown.options[dropdown.selectedIndex].text;
+        const input = document.getElementById("dynamicInput");
+        let value;
+
+        if (input.type === "checkbox") {
+          value = input.checked ? "Yes" : "No";
+        } else {
+          value = input.value;
+        }
+
+        if (value === "" || value === null) {
+          alert("Please enter a value!");
+          return;
+        }
+
+
+
+
+      });
+    </script>
+  </body>
+</html>
