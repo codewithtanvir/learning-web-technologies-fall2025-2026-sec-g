@@ -1,0 +1,40 @@
+<html>
+<head>
+    <title>Profile Picture Form</title>
+    <script>
+        function validateProfile() {
+            var userId = document.getElementById('userid').value.trim();
+            var picture = document.getElementById('picture').value;
+            
+            if (userId === '') {
+                alert('User ID cannot be empty!');
+                return false;
+            }
+            
+            if (picture === '') {
+                alert('Please select a picture!');
+                return false;
+            }
+            
+            var allowedExtensions = /(\.(jpg|jpeg|png|gif))$/i;
+            if (!allowedExtensions.exec(picture)) {
+                alert('Please upload a valid image file (jpg, jpeg, png, gif)!');
+                return false;
+            }
+            
+            alert('Profile information is valid!');
+            return true;
+        }
+    </script>
+</head>
+<body>
+    <h3>7. Profile Picture</h3>
+    <form onsubmit="return validateProfile()">
+        User Id <input type="text" id="userid" name="userid" value="">
+        <br>
+        Picture <input type="file" id="picture" name="picture">
+        <br><br>
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>

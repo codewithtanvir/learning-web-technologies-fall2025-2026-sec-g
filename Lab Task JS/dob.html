@@ -1,0 +1,64 @@
+<html>
+<head>
+    <title>Date of Birth Form</title>
+    <script>
+        function validateDOB() {
+            var dd = document.getElementById('dd').value;
+            var mm = document.getElementById('mm').value;
+            var yyyy = document.getElementById('yyyy').value;
+            
+            if (dd === 'dd' || dd === '' || mm === 'mm' || mm === '' || yyyy === 'yyyy' || yyyy === '') {
+                alert('Please enter a valid date of birth!');
+                return false;
+            }
+            
+            var day = parseInt(dd);
+            var month = parseInt(mm);
+            var year = parseInt(yyyy);
+            
+            if (isNaN(day) || isNaN(month) || isNaN(year)) {
+                alert('Please enter numeric values for date!');
+                return false;
+            }
+            
+            if (day < 1 || day > 31) {
+                alert('Day must be between 1 and 31!');
+                return false;
+            }
+            
+            if (month < 1 || month > 12) {
+                alert('Month must be between 1 and 12!');
+                return false;
+            }
+            
+            if (year < 1900 || year > new Date().getFullYear()) {
+                alert('Please enter a valid year!');
+                return false;
+            }
+            
+            var daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+            if ((year % 4 === 0 && year % 100 !== 0) || year % 400 === 0) {
+                daysInMonth[1] = 29;
+            }
+            
+            if (day > daysInMonth[month - 1]) {
+                alert('Invalid day for the selected month!');
+                return false;
+            }
+            
+            alert('Date of birth is valid!');
+            return true;
+        }
+    </script>
+</head>
+<body>
+    <h3>4. Date of Birth</h3>
+    <form onsubmit="return validateDOB()">
+        <input type="text" id="dd" name="dd" size="2" value="dd"> /
+        <input type="text" id="mm" name="mm" size="2" value="mm"> /
+        <input type="text" id="yyyy" name="yyyy" size="4" value="yyyy">
+        <br><br>
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>

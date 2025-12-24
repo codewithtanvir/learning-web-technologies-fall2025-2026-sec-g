@@ -1,0 +1,177 @@
+<html>
+<head>
+    <title>Person Profile</title>
+    <script>
+        function validatePersonProfile() {
+            // Name validation
+            var name = document.getElementById('name').value.trim();
+            if (name === '') {
+                alert('Name cannot be empty!');
+                return false;
+            }
+            if (name.length < 2) {
+                alert('Name must contain at least two characters!');
+                return false;
+            }
+            if (!/^[a-zA-Z]/.test(name)) {
+                alert('Name must start with a letter!');
+                return false;
+            }
+            if (!/^[a-zA-Z .\-]+$/.test(name)) {
+                alert('Name can contain only letters, periods, and dashes!');
+                return false;
+            }
+            
+            // Email validation
+            var email = document.getElementById('email').value.trim();
+            if (email === '') {
+                alert('Email cannot be empty!');
+                return false;
+            }
+            var emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            if (!emailPattern.test(email)) {
+                alert('Please enter a valid email address!');
+                return false;
+            }
+            
+            // Gender validation
+            var genderOptions = document.getElementsByName('gender');
+            var genderSelected = false;
+            for (var i = 0; i < genderOptions.length; i++) {
+                if (genderOptions[i].checked) {
+                    genderSelected = true;
+                    break;
+                }
+            }
+            if (!genderSelected) {
+                alert('Please select a gender!');
+                return false;
+            }
+            
+            // Date of Birth validation
+            var dd = document.getElementById('dd').value;
+            var mm = document.getElementById('mm').value;
+            var yyyy = document.getElementById('yyyy').value;
+            
+            if (dd === '' || mm === '' || yyyy === '') {
+                alert('Please enter a complete date of birth!');
+                return false;
+            }
+            
+            var day = parseInt(dd);
+            var month = parseInt(mm);
+            var year = parseInt(yyyy);
+            
+            if (isNaN(day) || isNaN(month) || isNaN(year)) {
+                alert('Please enter numeric values for date!');
+                return false;
+            }
+            
+            if (day < 1 || day > 31 || month < 1 || month > 12 || year < 1900 || year > new Date().getFullYear()) {
+                alert('Please enter a valid date of birth!');
+                return false;
+            }
+            
+            // Blood Group validation
+            var bloodGroup = document.getElementById('bloodgroup').value;
+            if (bloodGroup === '') {
+                alert('Please select a blood group!');
+                return false;
+            }
+            
+            // Degree validation
+            var degreeOptions = document.getElementsByName('degree');
+            var degreeSelected = false;
+            for (var i = 0; i < degreeOptions.length; i++) {
+                if (degreeOptions[i].checked) {
+                    degreeSelected = true;
+                    break;
+                }
+            }
+            if (!degreeSelected) {
+                alert('Please select at least one degree!');
+                return false;
+            }
+            
+            alert('Profile is valid and ready to submit!');
+            return true;
+        }
+    </script>
+</head>
+<body>
+    <form onsubmit="return validatePersonProfile()">
+    <table border="1" width="500" align="center">
+        <tr>
+            <td colspan="2" align="center">
+                <h2>PERSON PROFILE</h2>
+            </td>
+        </tr>
+        <tr>
+            <td>Name</td>
+            <td><input type="text" id="name" name="name"></td>
+        </tr>
+        <tr>
+            <td>Email</td>
+            <td><input type="text" id="email" name="email"></td>
+        </tr>
+        <tr>
+            <td>Gender</td>
+            <td>
+                <input type="radio" name="gender" value="Male"> Male
+                <input type="radio" name="gender" value="Female"> Female
+                <input type="radio" name="gender" value="Other"> Other
+            </td>
+        </tr>
+        <tr>
+            <td>Date of Birth</td>
+            <td>
+                <input type="text" id="dd" name="dd" size="2"> /
+                <input type="text" id="mm" name="mm" size="2"> /
+                <input type="text" id="yyyy" name="yyyy" size="4">
+                <i>(dd/mm/yyyy)</i>
+            </td>
+        </tr>
+        <tr>
+            <td>Blood Group</td>
+            <td>
+                <select id="bloodgroup" name="bloodgroup">
+                    <option value="">Select</option>
+                    <option value="A+">A+</option>
+                    <option value="A-">A-</option>
+                    <option value="B+">B+</option>
+                    <option value="B-">B-</option>
+                    <option value="O+">O+</option>
+                    <option value="O-">O-</option>
+                    <option value="AB+">AB+</option>
+                    <option value="AB-">AB-</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Degree</td>
+            <td>
+                <input type="checkbox" name="degree" value="SSC"> SSC
+                <input type="checkbox" name="degree" value="HSC"> HSC
+                <input type="checkbox" name="degree" value="BSc"> BSc.
+                <input type="checkbox" name="degree" value="MSc"> MSc.
+            </td>
+        </tr>
+        <tr>
+            <td>Photo</td>
+            <td>
+                <input type="file" name="photo"> No file selected.
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2"></td>
+        </tr>
+        <tr>
+            <td colspan="2" align="right">
+                <input type="submit" value="Submit">
+                <input type="reset" value="Reset">
+            </td>
+        </tr>
+    </table>
+    </form>
+</body>
+</html>

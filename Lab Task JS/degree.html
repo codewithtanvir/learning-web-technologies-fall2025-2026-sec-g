@@ -1,0 +1,36 @@
+<html>
+<head>
+    <title>Degree Form</title>
+    <script>
+        function validateDegree() {
+            var degreeOptions = document.getElementsByName('degree');
+            var isSelected = false;
+            
+            for (var i = 0; i < degreeOptions.length; i++) {
+                if (degreeOptions[i].checked) {
+                    isSelected = true;
+                    break;
+                }
+            }
+            
+            if (!isSelected) {
+                alert('Please select at least one degree!');
+                return false;
+            }
+            
+            alert('Degree selection is valid!');
+            return true;
+        }
+    </script>
+</head>
+<body>
+    <h3>5. Degree</h3>
+    <form onsubmit="return validateDegree()">
+        <input type="checkbox" name="degree" value="SSC"> SSC
+        <input type="checkbox" name="degree" value="HSC"> HSC
+        <input type="checkbox" name="degree" value="BSc"> BSc
+        <br><br>
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>
